@@ -2,6 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <!-- 🔹 Hace que el sitio sea responsive -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🧮 La Conjetura de Collatz</title>
   <style>
     body {
@@ -17,8 +19,9 @@
     }
     h1 {
       margin-top: 10px;
-      font-size: 24px;
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem); /* 🔹 Escalable */
       text-align: center;
+      max-width: 900px;
     }
     .info {
       max-width: 800px;
@@ -26,25 +29,26 @@
       padding: 15px 20px;
       border-radius: 12px;
       margin-bottom: 20px;
-      font-size: 15px;
+      font-size: clamp(0.9rem, 1.5vw, 1rem); /* 🔹 Texto flexible */
       line-height: 1.6;
     }
     .input-box {
       margin: 15px 0;
+      text-align: center;
     }
     input {
       padding: 8px;
-      font-size: 16px;
+      font-size: clamp(0.9rem, 1.5vw, 1rem); /* 🔹 Escalable */
       text-align: center;
       border: none;
       border-radius: 6px;
       outline: none;
-      width: 180px;
+      width: clamp(140px, 25vw, 200px); /* 🔹 Se adapta */
     }
     button {
       padding: 8px 14px;
       margin-left: 10px;
-      font-size: 16px;
+      font-size: clamp(0.9rem, 1.5vw, 1rem);
       font-weight: bold;
       color: white;
       background: black;
@@ -64,7 +68,7 @@
       border-radius: 12px;
       white-space: pre-wrap;
       word-wrap: break-word;
-      font-size: 14px;
+      font-size: clamp(0.8rem, 1.3vw, 0.95rem);
     }
   </style>
 </head>
@@ -167,12 +171,16 @@
       let texto = `🔢 Número inicial: ${num}\n📈 Pasos: ${pasos}\n📊 Máximo alcanzado: ${maximo}\n\n`;
       texto += secuencia.join(" → ");
 
-      // Revisar si la secuencia termina con 4 → 2 → 1
       const ultimaParte = secuencia.slice(-3).map(n => n.toString());
-      if (ultimaParte.join(" → ") === "4 → 2 → 1") {
-        texto += "\n\n✅ Aquí se acaba: 4 → 2 → 1";
-        texto += "\nℹ️ ¿Por qué?: La secuencia termina al alcanzar el ciclo final 4 → 2 → 1, que se repite indefinidamente. Una vez en este ciclo, la secuencia ya no genera números nuevos.";
-      }
+if (ultimaParte.join(" → ") === "4 → 2 → 1") {
+  texto += "\n\n✅ Aquí se acaba: 4 → 2 → 1";
+  texto += "\nℹ️ ¿Por qué?: La secuencia siempre termina en el ciclo 4 → 2 → 1, que se repite indefinidamente.";
+  texto += "\nEsto ocurre porque al llegar a 1, la regla dice que como es impar: 1 × 3 + 1 = 4.";
+  texto += "\nLuego, 4 ÷ 2 = 2 y después 2 ÷ 2 = 1.";
+  texto += "\nAsí se reinicia el mismo ciclo una y otra vez sin generar números nuevos.";
+}
+
+
 
       salida.textContent = texto;
     }
